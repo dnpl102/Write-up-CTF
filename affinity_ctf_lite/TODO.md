@@ -60,11 +60,11 @@ def shift(msg):
 
 - Hàm unshift của mình chỉ đơn giản chia làm 2 mảng chứa kí tự ở vị trí chẵn và lẻ
 - Đảo ngược o2 lại
-- xog nối o1 với o2
+- xong nối o1 với o2
 - vd : msg = "abcd" -> shift(msg) = "adbc"
   o1 = "ab"
   o2 = "dc"
-  
+
 ```python
 def unshift(msg):
     o1 = ''
@@ -81,8 +81,8 @@ def unshift(msg):
 
 
 ```python
-	hashed = '4660۠ܰ4660ڀ٠װװސ23300۰ސݐ18640ܠݰװۀڠ18640۰ްؠѠȐՀȐа4660ѠȐѠߐА' 
-    print("[+] Flag", unshift(decode(hashed)))
+hashed = '4660۠ܰ4660ڀ٠װװސ23300۰ސݐ18640ܠݰװۀڠ18640۰ްؠѠȐՀȐа4660ѠȐѠߐА' 
+print("[+] Flag", unshift(decode(hashed)))
 ```
 
 ==> Flag: AFFCTF{4lw4y5_f1n1sh_your_job!!1!}
