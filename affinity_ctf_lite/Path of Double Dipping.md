@@ -18,3 +18,5 @@ r = requests.get(url+path)
 flag = re.search(r'AFFCTF{(.*?)}',r.text).group(0)
 print('[+] FLAG: ',flag)
 ```
+
+==> Flag : AFFCTF{1s7r1pl3D1p83tt3r?}
