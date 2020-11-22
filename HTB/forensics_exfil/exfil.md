@@ -28,6 +28,8 @@ group_concat(database_name) lấy tất cả record của Field database_name t�
 			97 >> 6  & 1 == 1 ==> SLEEP(3)
 			97 >> 5  & 1 == 1 ==> SLEEP(3)
 			97 >> 2  & 1 == 1 ==> SLEEP(3)
+
+		Mã ASCII(97) = 'a' ==> chữ cái đầu tiên của database_name ở query trên là a
 	```
 		
 
