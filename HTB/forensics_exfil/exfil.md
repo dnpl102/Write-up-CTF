@@ -38,6 +38,7 @@ group_concat(database_name) lấy tất cả record của Field database_name t�
 - Ban đầu mình filter mysql contains "db_m3149.users" để lọc ra dữ liệu cần thiết, sau đó export sang json để xử lý
 nhưng có 1 vấn đề là sau khi export thì bị duplicate key (json parse sẽ reject những key trùng nhau và chỉ lấy key ở cuối)
 ![4](4.png)
+![5](5.png)
 
 - Mình bị stuck đoạn này khá lâu và tìm đến tshark (mình tạm gọi là phiên bản terminal của Wireshark)
 
