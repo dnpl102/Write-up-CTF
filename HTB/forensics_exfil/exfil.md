@@ -107,7 +107,7 @@ print("[+] password :", Decode(passwd))
 ```
 
 - result :
-	```sh
-		[+] user : admin
-		[+] password : HTB{b1t_sh1ft1ng_3xf1l_1s_c00l}
-	```
+```sh
+	[+] user : admin
+	[+] password : HTB{b1t_sh1ft1ng_3xf1l_1s_c00l}
+```
