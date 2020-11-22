@@ -1,5 +1,5 @@
 # exfil
-
+# TEAM : ζp33d_0∫_Ψ1m3
 - Đầu tiên, phân tích sơ qua thì ta thấy file capture này đang mô phỏng lại quá trình Time Based Blind SQL Injection lên server thông qua protocol mysql
 - Filter "mysql" ta sẽ thấy được hàng loạt các câu lệnh mysql injection được attacker gửi lên server
 ![1](1.png)
