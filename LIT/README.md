@@ -37,7 +37,7 @@ and It returns 1 column name `sql` which contains struct of all table.
 I continues use burp intruder to brute and I get column `flag_column`
 Brute it and we get flag.
 `'or(substr((SELECT(flag_column)from(flag_is_in_here)),1,1)='a'or'`
-###Solution 2
+### Solution 2
 When i have solved this chall, i realise we can use tab to replace space
 
 Payload look like:
