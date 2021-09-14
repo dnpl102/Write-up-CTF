@@ -1,9 +1,10 @@
-#LITCTF
-##Author: darkmode
-##Category: WEB(6/7)
+# LITCTF
 
-##Alex-fan-club
-##Type: sqli
+## Author: darkmode
+## Category: WEB(6/7)
+
+## Alex-fan-club
+## Type: sqli
 
 The interface of website 
 ![1](challAFC.png)
@@ -16,7 +17,7 @@ sqli = 1 in [c in param for c in "*-/ |%"]
 space. We can use tab to replace space
 
 
-###Solution
+### Solution
 
 I try to use payload `'or(1)or'` and it work (return all result)
 
@@ -36,7 +37,7 @@ and It returns 1 column name `sql` which contains struct of all table.
 I continues use burp intruder to brute and I get column `flag_column`
 Brute it and we get flag.
 `'or(substr((SELECT(flag_column)from(flag_is_in_here)),1,1)='a'or'`
-###Solution 2
+### Solution 2
 When i have solved this chall, i realise we can use tab to replace space
 
 Payload look like:
@@ -45,8 +46,8 @@ Payload look like:
 
 
 
-##Alex-fan-club
-##Type: pickle deserialization rce
+## Alex-fan-club
+## Type: pickle deserialization rce
 
 ![3](challpickle.png)
 This chall use pickle to serialize object, when you create a bio it create a id with your bio
