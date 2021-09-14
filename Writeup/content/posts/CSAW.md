@@ -1,7 +1,7 @@
 ---
 title: "CSAW - 2021"
 date: 2021-09-14T13:13:43+07:00
-draft: true 
+draft: false 
 ---
 
 # Ninja
