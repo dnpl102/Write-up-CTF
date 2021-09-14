@@ -1,0 +1,10 @@
+theme = "m10c"
+title = "D@rkmod3"
+author = "D@rkmod3"
+
+[params]
+  author = "John Doe"
+  description = "Hack or hacked"
+  menu_item_separator = " - "
+  avatar = "/avatar.png"
+
